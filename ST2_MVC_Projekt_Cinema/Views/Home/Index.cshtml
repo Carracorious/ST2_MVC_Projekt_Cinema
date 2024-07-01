@@ -1,27 +1,35 @@
-﻿
-@model IEnumerable<ST2_MVC_Projekt_Cinema.Models.Seances>
+﻿@model List<SeanceViewModel>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Lista seansów";
 }
 
-<h1>To działa seanse</h1>
+<h1>Seanse</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Dodaj seans</a>
+</p>
+
 <table class="table">
     <thead>
         <tr>
-            <th>Movie Title</th>
-            <th>Start Time</th>
-            <th>Action</th>
+            <th>Tytuł filmu</th>
+            <th>Data</th>
+            <th>Ilość rezerwacji</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var seance in Model)
+        @foreach (var s in Model)
         {
+            var seance = s.Seance;
+            var reservationCount = s.ReservationCount;
             <tr>
                 <td>@seance.Movie.Title</td>
                 <td>@seance.StartTime</td>
+                <td>@reservationCount</td>
                 <td>
-                    <a href="/Reservations/Create?seanceId=@seance.Id" class="btn btn-primary">Book</a>
-                    <a asp-action="Delete" asp-route-id="@seance.Id" class="btn btn-danger btn-sm">Delete</a>
+                    <a href="/Reservations/Create?seanceId=@seance.Id" class="btn btn-primary">Zarezerwuj</a>
+                    <a asp-action="Delete" asp-route-id="@seance.Id" class="btn btn-danger btn-sm">Usuń</a>
                 </td> 
             </tr>
         }

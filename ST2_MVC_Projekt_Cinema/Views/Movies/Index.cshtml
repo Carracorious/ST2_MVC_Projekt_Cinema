@@ -1,36 +1,36 @@
-﻿@model IEnumerable<ST2_MVC_Projekt_Cinema.Models.Movie>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Movie>
 @{
-    <h1>Movies</h1>
-
-    <p>
-        <a asp-action="Create" class="btn btn-success">Create New</a>
-    </p>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Description</th>
-
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var movie in Model)
-            {
-                <tr>
-                    <td>@movie.Id</td>
-                    <td>@movie.Title</td>
-                    <td>@movie.Description</td>
-                    <td>
-                        <a asp-action="Delete" asp-route-id=@movie.Id class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    ViewData["Title"] = "Filmy";
 }
+
+<h1>Lista filmów</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Dodaj nowy</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                <td>@movie.Id</td>
+                <td>@movie.Title</td>
+                <td>@movie.Description</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id=@movie.Id class="btn btn-danger btn-sm m-1">Edytuj</a>
+                    <a asp-action="Delete" asp-route-id=@movie.Id class="btn btn-danger btn-sm m-1">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

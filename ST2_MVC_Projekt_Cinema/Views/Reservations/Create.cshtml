@@ -1,16 +1,35 @@
-﻿@model ST2_MVC_Projekt_Cinema.Models.Reservations
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    <h1>Book a Ticket</h1>
+﻿@model Reservations
 
-    <form asp-action="Create" method="post">
-        <input type="hidden" name="seanceId" value="@ViewBag.SeanceId" />
-        <div class="form-group">
-            <label for="SeatNumber">Seat Number</label>
-            <input type="number" class="form-control" id="SeatNumber" name="seatNumber" />
-        </div>
-        <button type="submit" class="btn btn-primary">Book</button>
-    </form>
+@{
+    ViewData["Title"] = "Zarezerwuj bilet";
 }
+
+<h1>Zarezerwuj miejsce</h1>
+
+<form asp-action="Create" method="post">
+    <input type="hidden" name="seanceId" value="@ViewBag.SeanceId" />
+    <div class="form-group">
+        <label for="UserName">Imię i nazwisko</label>
+        <input type="text" class="form-control" id="UserName" name="userName" />
+    </div>
+    <div class="form-group">
+        <label for="UserEmail">Adres e-mail</label>
+        <input type="email" class="form-control" id="UserEmail" name="userEmail" />
+    </div>
+    <div class="form-group">
+        <label for="SeatNumber">Numer siedzenia</label>
+        <input type="number" class="form-control" id="SeatNumber" name="seatNumber" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Discount">Zniżka</label>
+        <select asp-for="Discount" id="Discount" name="discount" class="form-control">
+            <option value="50">Student</option>
+            <option value="75">Dziecko</option>
+            <option value="0">Dorosły</option>
+        </select>
+        <span asp-validation-for="Discount" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Zarezerwuj</button>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Anuluj</a>
+</form>

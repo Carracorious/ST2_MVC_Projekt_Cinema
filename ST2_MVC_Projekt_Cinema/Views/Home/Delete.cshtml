@@ -1,21 +1,22 @@
-﻿@model ST2_MVC_Projekt_Cinema.Models.Seances
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Seances
+
 @{
-    <h1>Delete seance</h1>
-    <form asp-action="Delete">
-    <input type="hidden" asp-for="Id" />
-        <div class="form-group">
-            <label asp-for="StartTime"></label>
-            <input asp-for="StartTime" class="form-control" disabled />
-        </div>
-        <div class="form-group">
-            <label asp-for="MovieId"></label>
-            <input asp-for="MovieId" class="form-control" disabled />
-        </div>
-        <button type="submit" class="btn btn-danger">Delete</button>
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-    </form>
-    
+    ViewData["Title"] = "Usuń seans";
 }
+
+<h1>Usuń seans</h1>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="StartTime"></label>
+        <input asp-for="StartTime" class="form-control" disabled />
+    </div>
+    <div class="form-group">
+        <label asp-for="MovieId"></label>
+        <input asp-for="MovieId" class="form-control" disabled />
+    </div>
+
+    <button type="submit" class="btn btn-danger">Usuń</button>
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+</form>

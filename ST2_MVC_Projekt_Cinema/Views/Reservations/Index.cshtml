@@ -1,0 +1,40 @@
+﻿@model List<Reservations>
+@{
+    ViewData["Title"] = "Rezerwacje";
+    foreach(var model in Model)
+        Console.WriteLine(model.SeanceId);
+}
+
+<h1>Lista rezerwacji</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Klient</th>
+            <th>Seans</th>
+            <th>Film</th>
+            <th>Numer siedzenia</th>
+            <th>Status</th>
+            <th>Zniżka</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model)
+        {
+            <tr>
+                <td>@reservation.Id</td>
+                <td>@reservation.User.Name</td>
+                <td>@reservation.SeanceId</td>
+                <td>@reservation.Seance.Movie.Title</td>
+                <td>@reservation.SeatNumber</td>
+                <td>@reservation.IsConfirmed</td>
+                <td>@reservation.Discount %</td>
+                <td>
+                    <a asp-action="Delete" asp-route-id=@reservation.Id class="btn btn-danger btn-sm">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

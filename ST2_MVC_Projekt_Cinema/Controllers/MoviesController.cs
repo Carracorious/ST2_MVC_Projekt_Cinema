@@ -14,51 +14,71 @@ namespace ST2_MVC_Projekt_Cinema.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Movies.ToListAsync());
+            return View(_context.Movies.ToList());
         }
+
+        //Obsluga dodawania nowych filmow
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description")] Movie movie)
+        public IActionResult Create(string Title, string Description)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View();
+
+            Movie movie = new Movie()
             {
-                _context.Add(movie);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+                Title = Title,
+                Description = Description
+            };
+
+            _context.Movies.Add(movie);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
+        }
+
+        //Obsluga usuwania filmow
+        public IActionResult Delete(int id)
+        {
+            var movie = _context.Movies.Find(id);
+
             return View(movie);
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        [HttpPost]
+        public IActionResult Delete(int id, Movie movie)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null)
-            {
-                return NotFound();
-            }
+                return RedirectToAction("Index", "Movies");
+
+            _context.Movies.Remove(movie);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Movies");
+        }
+
+        //Obsluga edytowania informacji o filmie
+        public IActionResult Edit(int id)
+        {
+            var movie = _context.Movies.Find(id);
 
             return View(movie);
         }
 
-        [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpPost]
+        public IActionResult Edit(int id, Movie movie)
         {
-            var movie = await _context.Movies.FindAsync(id);
-            _context.Movies.Remove(movie);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            if (!ModelState.IsValid)
+                return View(movie);
+
+            _context.Movies.Update(movie);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Movies");
+        }          
     }
 }

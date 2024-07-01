@@ -1,0 +1,25 @@
+﻿@model Reservations
+
+@{
+    ViewData["Title"] = "Usuń rezerwację";
+}
+
+<h1>Usuń rezerwację</h1>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="UserId"></label>
+        <input asp-for="UserId" class="form-control" disabled />
+    </div>
+    <div class="form-group">
+        <label asp-for="SeanceId"></label>
+        <input asp-for="SeanceId" class="form-control" disabled />
+    </div>
+    <div class="form-group">
+        <label asp-for="SeatNumber"></label>
+        <input asp-for="SeatNumber" class="form-control" disabled />
+    </div>
+
+    <button type="submit" class="btn btn-danger">Usuń</button>
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+</form>
