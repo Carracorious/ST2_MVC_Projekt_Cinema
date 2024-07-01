@@ -17,27 +17,53 @@ namespace ST2_MVC_Projekt_Cinema.Controllers
 
         public async Task<IActionResult> Index() 
         {
-            var showtimes = await _appDbContext.Seances.Include(s => s.Movie).ToListAsync();
-            return View(showtimes);
+            var seances = await _appDbContext.Seances.Include(s => s.Movie).ToListAsync();
+            return View(seances);
         }
 
-        
-
-        /*public IActionResult Index()
+        public IActionResult Create()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> Create([Bind("Id,StartTime,MovieId")] Seances seance)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                _appDbContext.Add(seance);
+                await _appDbContext.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(seance);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> Delete(int? id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var seance = await _appDbContext.Seances
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (seance == null)
+            {
+                return NotFound();
+            }
+
+            return View(seance);
         }
-        */
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var seance = await _appDbContext.Seances.FindAsync(id);
+            _appDbContext.Seances.Remove(seance);
+            await _appDbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
+
 }
+
