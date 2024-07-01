@@ -12,7 +12,7 @@ namespace ST2_MVC_Projekt_Cinema
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContext<AppDbContext>(options =>options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),npgsqlOptions => npgsqlOptions.CommandTimeout(120)));
 
             var app = builder.Build();
 

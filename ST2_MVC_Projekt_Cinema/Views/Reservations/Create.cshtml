@@ -1,0 +1,16 @@
+﻿@model ST2_MVC_Projekt_Cinema.Models.Reservations
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    <h1>Book a Ticket</h1>
+
+    <form asp-action="Create" method="post">
+        <input type="hidden" name="seanceId" value="@ViewBag.SeanceId" />
+        <div class="form-group">
+            <label for="SeatNumber">Seat Number</label>
+            <input type="number" class="form-control" id="SeatNumber" name="seatNumber" />
+        </div>
+        <button type="submit" class="btn btn-primary">Book</button>
+    </form>
+}

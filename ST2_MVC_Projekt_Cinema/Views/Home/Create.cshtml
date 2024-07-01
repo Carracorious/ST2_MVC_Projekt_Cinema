@@ -1,0 +1,21 @@
+﻿@model ST2_MVC_Projekt_Cinema.Models.Seances
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    <h1>Add seance</h1>
+    <form asp-action="Create">
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="StartTime"></label>
+            <input asp-for="StartTime" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="MovieId"></label>
+            <input asp-for="MovieId" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-danger">Create</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+}

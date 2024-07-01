@@ -1,8 +1,29 @@
-﻿@{
+﻿
+@model IEnumerable<ST2_MVC_Projekt_Cinema.Models.Seances>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>To działa seanse</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Movie Title</th>
+            <th>Start Time</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var seance in Model)
+        {
+            <tr>
+                <td>@seance.Movie.Title</td>
+                <td>@seance.StartTime</td>
+                <td>
+                    <a href="/Reservations/Create?seanceId=@seance.Id" class="btn btn-primary">Book</a>
+                    <a asp-action="Delete" asp-route-id="@seance.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td> 
+            </tr>
+        }
+    </tbody>
+</table>
