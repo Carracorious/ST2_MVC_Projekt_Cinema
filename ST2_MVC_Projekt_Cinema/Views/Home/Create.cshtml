@@ -8,12 +8,12 @@
 
 <form asp-action="Create" asp-controller="Home" method="post">
     <div class="form-group">
-        <label asp-for="StartTime"></label>
+        <label asp-for="StartTime">Godzina seansu</label>
         <input asp-for="StartTime" class="form-control" />
         <span asp-validation-for="StartTime" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="MovieId"></label>
+        <label asp-for="MovieId">Tytuł</label>
         <select asp-for="MovieId" class="form-control" asp-items="ViewBag.MovieList"></select>
         <span asp-validation-for="MovieId" class="text-danger"></span>
     </div>

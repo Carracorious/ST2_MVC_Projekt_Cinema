@@ -17,7 +17,6 @@ namespace ST2_MVC_Projekt_Cinema.Controllers
 
         public IActionResult Index() 
         {
-            //var seances = _context.Seances.Include(s => s.Movie).ToList();
             var seances = _context.Seances.Include(s => s.Movie).Select(s => new SeanceViewModel
             {
                 Seance = s,
