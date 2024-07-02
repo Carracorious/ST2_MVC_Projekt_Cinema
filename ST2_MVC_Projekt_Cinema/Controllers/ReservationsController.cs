@@ -9,10 +9,13 @@ namespace ST2_MVC_Projekt_Cinema.Controllers
     public class ReservationsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IEmailSender _emailSender;
 
-        public ReservationsController(AppDbContext context)
+
+        public ReservationsController(AppDbContext context, IEmailSender emailSender)
         {
             _context = context;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()
@@ -32,7 +35,7 @@ namespace ST2_MVC_Projekt_Cinema.Controllers
         public IActionResult Create(int seanceId, int seatNumber, int discount, string userName, string userEmail)
         {
             var user = _context.Users.FirstOrDefault(u => u.Email == userEmail);
-            if(user == null)
+            if (user == null)
             {
                 user = new Users
                 {
@@ -53,6 +56,13 @@ namespace ST2_MVC_Projekt_Cinema.Controllers
                 IsConfirmed = true,
                 Discount = discount
             };
+
+            var receiver = userEmail;
+            var subject = "Rezerwacja";
+            var message = $"Rezerwacja na seans: {seanceId} na miejscu: {seatNumber}. Zastosowano zniżkę: {discount} %.";
+
+            _emailSender.SendEmailAsync(receiver, subject, message);
+
 
             _context.Reservations.Add(reservation);
             _context.SaveChanges();
